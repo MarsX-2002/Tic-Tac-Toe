@@ -1,0 +1,43 @@
+b = [' ' for _ in range(9)]
+def game_grid():
+    print(f"""{9 * '-'}
+| {b[0]} {b[1]} {b[2]} |
+| {b[3]} {b[4]} {b[5]} |
+| {b[6]} {b[7]} {b[8]} |
+{9 * '-'}
+""")
+def game_analyze():
+    while True:
+        x, y = map(int, input('Enter the coordinates: ').split())
+        i = 3 * x + y - 4
+        if type(x) != int and type(y) != int:
+            print('You should enter numbers!')
+        elif not (1 <= x <= 3 and 1 <= y <= 3):
+            print('Coordinates should be from 1 to 3!')
+        elif b[i] != ' ':
+            print('This cell is occupied! Choose another one!')
+        else:
+            if b.count(' ') % 2 != 0:
+                b[i] = 'X'
+            else:
+                b[i] = 'O'
+            print(f"""{9 * '-'}
+| {b[0]} {b[1]} {b[2]} |
+| {b[3]} {b[4]} {b[5]} |
+| {b[6]} {b[7]} {b[8]} |
+{9 * '-'}
+""")
+        line_0 = [b[0:3], b[3:6], b[6:9], b[0:7:3], b[1:8:3], b[2:9:3], b[0:9:4], b[2:7:2]]
+        line = ["".join(k) for k in line_0]
+        if 'XXX' in line:
+            print('X wins')
+            break
+        if 'OOO' in line:
+            print('O wins')
+            break
+        if b.count(' ') == 0 and not ('XXX' in line or 'OOO' in line):
+            print('Draw')
+            break
+            
+game_grid()        
+game_analyze()
